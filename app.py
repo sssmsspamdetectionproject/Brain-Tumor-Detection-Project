@@ -60,7 +60,7 @@ if uploaded_image is not None:
     image_np = np.array(image)
     
     # Load the YOLO model
-    model_path = 'C:/Users/shubh/Desktop/yolov8_model.pt'  # Update this path to your model
+    model_path = 'yolov8_model.pt'  # Update this path to your model
     model = load_model(model_path)
     
     if model is not None:
