@@ -84,14 +84,16 @@ st.markdown("""
     <h1 class="big-title">Brain Tumor Detection</h1>
 """, unsafe_allow_html=True)
 
-st.markdown('<h2 class="sub-title">Upload Image</h2>', unsafe_allow_html=True)
+st.markdown('<h2 class="sub-title">Input Image</h2>', unsafe_allow_html=True)
 uploaded_image = st.file_uploader("Choose an image...", type=["jpg", "jpeg", "png"])
 
 if uploaded_image is not None:
     # Open and resize the image using PIL
     image = Image.open(uploaded_image)
     image_resized = resize_and_pad_image(image, (640, 640))  # Resize and pad image to 640x640
-    st.image(image_resized, caption='Resized Image', use_column_width=True)
+
+    # Display the resized image without a caption
+    st.image(image_resized, use_column_width=True)
 
     # Load the YOLO model
     model_path = 'yolov8_model.pt'  # Update this path to your model
@@ -101,6 +103,6 @@ if uploaded_image is not None:
         # Perform detection and get the result plot
         result_plot = detect_and_plot(image_resized, model)
         
-        # Display the result plot in Streamlit
+        # Display the result plot with a heading above it
         st.markdown('<h2 class="output-title">Detection Results</h2>', unsafe_allow_html=True)
-        st.image(result_plot, caption='Detection Results')
+        st.image(result_plot, use_column_width=True)
