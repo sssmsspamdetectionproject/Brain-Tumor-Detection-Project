@@ -84,15 +84,16 @@ st.markdown("""
     <h1 class="big-title">Brain Tumor Detection</h1>
 """, unsafe_allow_html=True)
 
-st.markdown('<h2 class="sub-title">Input Image</h2>', unsafe_allow_html=True)
+# File uploader widget
 uploaded_image = st.file_uploader("Choose an image...", type=["jpg", "jpeg", "png"])
 
 if uploaded_image is not None:
     # Open and resize the image using PIL
     image = Image.open(uploaded_image)
     image_resized = resize_and_pad_image(image, (640, 640))  # Resize and pad image to 640x640
-
-    # Display the resized image without a caption
+    
+    # Display the resized image with a heading
+    st.markdown('<h2 class="sub-title">Input Image</h2>', unsafe_allow_html=True)
     st.image(image_resized, use_column_width=True)
 
     # Load the YOLO model
