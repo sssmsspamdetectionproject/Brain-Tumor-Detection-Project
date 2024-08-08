@@ -32,9 +32,8 @@ def detect_and_plot(image, model):
         rect = patches.Rectangle((x1, y1), x2-x1, y2-y1, linewidth=2, edgecolor='r', facecolor='none')
         ax.add_patch(rect)
         plt.text(x1, y1, f"{classes[int(cls)]} {conf:.2f}", color='white', fontsize=12, backgroundcolor='red')
-
-    #plt.title('YOLOv8 Detection')
-    #plt.axis('off')
+        
+    plt.axis('off')
     
     # Save the plot to a BytesIO object to display in Streamlit
     buf = io.BytesIO()
