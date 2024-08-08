@@ -94,7 +94,7 @@ if uploaded_image is not None:
     
     # Display the resized image with a heading
     st.markdown('<h2 class="sub-title">Input Image</h2>', unsafe_allow_html=True)
-    st.image(image_resized, use_column_width=True)
+    st.image(image_resized)
 
     # Load the YOLO model
     model_path = 'yolov8_model.pt'  # Update this path to your model
@@ -106,4 +106,4 @@ if uploaded_image is not None:
         
         # Display the result plot with a heading above it
         st.markdown('<h2 class="output-title">Detection Results</h2>', unsafe_allow_html=True)
-        st.image(result_plot, use_column_width=True)
+        st.image(result_plot)
