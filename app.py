@@ -18,6 +18,10 @@ def load_model(model_path):
         return None
     return model
 
+# Function to resize the image
+def resize_image(image, size=(640, 640)):
+    return image.resize(size, Image.ANTIALIAS)
+
 # Function to perform detection and plot results
 def detect_and_plot(image, model):
     results = model.predict(image)[0]
@@ -51,12 +55,13 @@ st.subheader("Upload Image")
 uploaded_image = st.file_uploader("Choose an image...", type=["jpg", "jpeg", "png"])
 
 if uploaded_image is not None:
-    # Open and display the image using PIL
+    # Open and resize the image using PIL
     image = Image.open(uploaded_image)
-    st.image(image, caption='Uploaded Image', use_column_width=True)
+    image_resized = resize_image(image, (640, 640))  # Resize image to 640x640
+    st.image(image_resized, caption='Resized Image', use_column_width=True)
 
-    # Convert PIL image to a format suitable for YOLO model
-    image_np = np.array(image)
+    # Convert resized PIL image to a format suitable for YOLO model
+    image_np = np.array(image_resized)
     
     # Load the YOLO model
     model_path = 'yolov8_model.pt'  # Update this path to your model
