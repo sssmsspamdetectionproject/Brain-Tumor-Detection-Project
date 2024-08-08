@@ -24,10 +24,16 @@ def resize_image(image, size=(640, 640)):
 
 # Function to perform detection and plot results
 def detect_and_plot(image, model):
-    results = model.predict(image)[0]
+    # Convert the image to RGB format for YOLO
+    image_rgb = image.convert("RGB")
+    # Convert the image to NumPy array
+    image_np = np.array(image_rgb)
+    
+    # Perform detection
+    results = model.predict(image_np)[0]
     
     fig, ax = plt.subplots(figsize=(8, 8))
-    ax.imshow(image)
+    ax.imshow(image_np)
     
     for detection in results.boxes:
         x1, y1, x2, y2 = detection.xyxy[0].cpu().numpy()
@@ -60,16 +66,13 @@ if uploaded_image is not None:
     image_resized = resize_image(image, (640, 640))  # Resize image to 640x640
     st.image(image_resized, caption='Resized Image', use_column_width=True)
 
-    # Convert resized PIL image to a format suitable for YOLO model
-    image_np = np.array(image_resized)
-    
     # Load the YOLO model
     model_path = 'yolov8_model.pt'  # Update this path to your model
     model = load_model(model_path)
     
     if model is not None:
         # Perform detection and get the result plot
-        result_plot = detect_and_plot(image_np, model)
+        result_plot = detect_and_plot(image_resized, model)
         
         # Display the result plot in Streamlit
         st.image(result_plot, caption='Detection Results')
