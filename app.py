@@ -18,10 +18,6 @@ def load_model(model_path):
         return None
     return model
 
-# Function to resize the image
-def resize_image(image, size=(640, 640)):
-    return image.resize(size, Image.Resampling.LANCZOS)
-
 # Function to perform detection and plot results
 def detect_and_plot(image, model):
     # Convert the image to RGB format for YOLO
@@ -61,10 +57,9 @@ st.subheader("Upload Image")
 uploaded_image = st.file_uploader("Choose an image...", type=["jpg", "jpeg", "png"])
 
 if uploaded_image is not None:
-    # Open and resize the image using PIL
+    # Open the image using PIL
     image = Image.open(uploaded_image)
-    image_resized = resize_image(image, (640, 640))  # Resize image to 640x640
-    st.image(image_resized, caption='Resized Image', use_column_width=True)
+    st.image(image, caption='Uploaded Image', use_column_width=True)
 
     # Load the YOLO model
     model_path = 'yolov8_model.pt'  # Update this path to your model
@@ -72,7 +67,7 @@ if uploaded_image is not None:
     
     if model is not None:
         # Perform detection and get the result plot
-        result_plot = detect_and_plot(image_resized, model)
+        result_plot = detect_and_plot(image, model)
         
         # Display the result plot in Streamlit
         st.image(result_plot, caption='Detection Results')
