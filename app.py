@@ -20,7 +20,7 @@ def load_model(model_path):
 
 # Function to resize the image
 def resize_image(image, size=(640, 640)):
-    return image.resize(size, Image.ANTIALIAS)
+    return image.resize(size, Image.Resampling.LANCZOS)
 
 # Function to perform detection and plot results
 def detect_and_plot(image, model):
